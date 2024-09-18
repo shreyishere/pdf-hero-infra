@@ -59,3 +59,8 @@ module "eks" {
     Terraform   = "true"
   }
 }
+
+output "configure_kubectl" {
+  description = "Command to configure kubectl"
+  value       = "aws eks --region ${var.region} update-kubeconfig --name ${module.eks.cluster_name}"
+}
