@@ -37,6 +37,10 @@ module "eks" {
 
   cluster_endpoint_public_access  = true
 
+  # Cluster access entry
+  # To add the current caller identity as an administrator
+  enable_cluster_creator_admin_permissions = true
+
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
