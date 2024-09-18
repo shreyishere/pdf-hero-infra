@@ -14,20 +14,16 @@ module "vpc" {
   single_nat_gateway   = true
 
   tags = {
-    Name                                         = "pdf-hero-vpc"
-    Terraform                                    = "true"
-    "kubernetes.io/cluster/pdf-hero-eks-cluster" = "shared"
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
   }
 
   public_subnet_tags = {
-    Name                                         = "pdf-hero-public-subnet"
-    "kubernetes.io/cluster/pdf-hero-eks-cluster" = "shared"
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
     "kubernetes.io/role/elb"                     = 1
   }
 
   private_subnet_tags = {
-    Name                                         = "pdf-hero-private-subnet"
-    "kubernetes.io/cluster/pdf-hero-eks-cluster" = "shared"
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
     "kubernetes.io/role/internal-elb"            = 1
   }
 }
@@ -35,9 +31,8 @@ module "vpc" {
 # EKS
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
 
-  cluster_name    = "pdf-hero-eks-cluster"
+  cluster_name    = "my-eks-cluster"
   cluster_version = "1.30"
 
   cluster_endpoint_public_access  = true
@@ -50,7 +45,7 @@ module "eks" {
       min_size       = 1
       max_size       = 3
       desired_size   = 2
-      instance_types = ["t2.small"]
+      instance_type = ["t2.small"]
     }
   }
 
