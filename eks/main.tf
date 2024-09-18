@@ -19,23 +19,23 @@ module "vpc" {
 
   public_subnet_tags = {
     "kubernetes.io/cluster/my-eks-cluster" = "shared"
-    "kubernetes.io/role/elb"                     = 1
+    "kubernetes.io/role/elb"               = 1
   }
 
   private_subnet_tags = {
     "kubernetes.io/cluster/my-eks-cluster" = "shared"
-    "kubernetes.io/role/internal-elb"            = 1
+    "kubernetes.io/role/internal-elb"      = 1
   }
 }
 
 # EKS
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
+  source = "terraform-aws-modules/eks/aws"
 
   cluster_name    = "my-eks-cluster"
   cluster_version = "1.30"
 
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_public_access = true
 
   # Cluster access entry
   # To add the current caller identity as an administrator
@@ -46,9 +46,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     nodes = {
-      min_size       = 1
-      max_size       = 3
-      desired_size   = 2
+      min_size      = 1
+      max_size      = 3
+      desired_size  = 1
       instance_type = ["t2.small"]
     }
   }
